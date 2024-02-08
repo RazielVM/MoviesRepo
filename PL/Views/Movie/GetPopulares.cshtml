@@ -1,0 +1,118 @@
+﻿@model Movie
+@{
+    ViewData["Title"] = "GetPopulares";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="encabezado text-white">
+    <div class="encabezado-sombra d-flex justify-content-center align-items-center">
+        <h1 class="text-center">Peliculas Populares</h1>
+    </div>
+</div>
+
+
+<hr />
+
+<div class="container">
+    <div class="row">
+        @foreach (Movie pelicula in Model.Movies)
+        {
+            <div class="col-md-3" style="margin-bottom: 5rem;">
+                <div class="card">
+                    <img src="@pelicula.Poster">
+                    <div class="overlay">
+                        <div style="margin: 0 1rem">
+                            <h3 class="text-center">@pelicula.Titulo</h3>
+                            <p>@pelicula.Descripcion</p>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-info" href="@Url.Action("Favorito", "Movie", new {idPelicula = pelicula.IdPelicula})">Agregar a favoritos <i class="far fa-star"></i></a>
+                                @*<button class="btn btn-info">Agregar a favoritos <i class="far fa-star"></i></button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<style>
+
+    .encabezado {
+        background: url(https://blogthinkbig.com/wp-content/uploads/sites/4/2020/01/cabecera_pel%C3%ADculas_m%C3%A1s_taquilleras.jpg?fit=1800%2C665);
+        background-size: cover;
+        height: 25rem;
+        max-width:100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .encabezado-sombra {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Color negro con 50% de opacidad */
+    }
+
+    .card {
+        position: relative;
+        width: 300px;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+            display: block;
+        }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .card:hover .overlay {
+        opacity: 1;
+    }
+
+    .overlay h3,
+    .overlay p {
+        margin: 0;
+    }
+
+    .star {
+        font-size: 24px;
+        color: #89b9d7;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+        .star.clicked {
+            color: #89b9d7;
+        }
+</style>
